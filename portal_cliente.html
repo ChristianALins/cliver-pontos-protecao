@@ -1,149 +1,216 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal do Cliente - CLIVER Corretora</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            max-width: 520px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-        }
-        .logo { text-align: center; margin-bottom: 30px; }
-        .logo h1 { color: #1a73e8; font-size: 22px; font-weight: 700; }
-        .logo p { color: #666; font-size: 14px; margin-top: 5px; }
-        .input-group { margin-bottom: 20px; }
-        label { display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px; }
-        input {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-            outline: none;
-        }
-        input:focus { border-color: #1a73e8; }
-        button {
-            width: 100%;
-            padding: 14px;
-            background: #1a73e8;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover { background: #1557b0; }
-        .result { margin-top: 30px; border-top: 2px solid #f0f0f0; padding-top: 25px; }
-        .saldo-box {
-            background: linear-gradient(135deg, #34a853, #1e7e34);
-            color: white;
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .saldo-box h2 { font-size: 14px; opacity: 0.9; margin-bottom: 8px; }
-        .saldo-valor { font-size: 48px; font-weight: 700; }
-        .saldo-label { font-size: 13px; opacity: 0.8; }
-        .equivalente {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 12px;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 14px;
-            color: #555;
-        }
-        .equivalente strong { color: #1a73e8; font-size: 18px; }
-        .extrato h4 { color: #333; margin-bottom: 12px; font-size: 14px; }
-        .mov-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 6px;
-            font-size: 13px;
-        }
-        .mov-positivo { background: #e8f5e9; color: #2e7d32; }
-        .mov-negativo { background: #fce4ec; color: #c62828; }
-        .mov-pontos { font-weight: 700; }
-        .error { color: #e53935; background: #fce4ec; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 14px; text-align: center; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Portal do Cliente - CLIVER CORRETORA DE SEGUROS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+           background:#f5f7fb; margin:0; padding:0; }
+    header { background:#152238; color:#fff; padding:16px 24px; }
+    header h1 { margin:0; font-size:20px; }
+    header small { font-size:12px; opacity:.85; }
+    main { max-width:900px; margin:0 auto; padding:16px; }
+    .card {
+      background:#fff; border-radius:8px; padding:16px;
+      box-shadow:0 2px 4px rgba(0,0,0,.05); margin-bottom:16px;
+    }
+    label { display:block; font-size:13px; margin-bottom:4px; }
+    input {
+      width:100%; padding:8px; border-radius:4px;
+      border:1px solid #ccc; box-sizing:border-box; font-size:13px;
+    }
+    button {
+      margin-top:10px; padding:8px 14px; border-radius:4px; border:none;
+      background:#1e88e5; color:#fff; cursor:pointer; font-size:13px;
+    }
+    button:hover { background:#1565c0; }
+    .muted { font-size:12px; color:#666; margin-top:4px; }
+    .saldo { font-size:24px; font-weight:bold; color:#1e88e5; }
+    .grid { display:flex; flex-wrap:wrap; gap:16px; }
+    .grid>div { flex:1; min-width:200px; }
+    table { width:100%; border-collapse:collapse; font-size:12px; margin-top:8px; }
+    th,td { padding:6px 4px; border-bottom:1px solid #eee; text-align:left; }
+    th { background:#f0f2f7; }
+    .tag { display:inline-block; padding:2px 6px; border-radius:4px; font-size:11px; }
+    .tag-ganho { background:#e8f5e9; color:#2e7d32; }
+    .tag-resgate { background:#ffebee; color:#c62828; }
+    .center { text-align:center; }
+    .error { color:#c62828; font-size:13px; margin-top:6px; }
+    .info-box {
+      background:#e6fffa; border-left:4px solid #38b6a3;
+      padding:10px; border-radius:6px; font-size:13px; color:#134e4a;
+      margin-top:10px;
+    }
+    @media (max-width:700px){ .grid{flex-direction:column;} }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <div class="logo">
-            <h1>CLIVER CORRETORA</h1>
-            <p>Programa de Pontos de Proteção</p>
-        </div>
-        <div class="input-group">
-            <label>Digite seu CPF para consultar</label>
-            <input type="text" id="cpfInput" placeholder="Apenas números (ex: 12345678901)" maxlength="11">
-        </div>
-        <button onclick="consultar()">Consultar Meus Pontos</button>
-        <div id="resultado"></div>
+<header>
+  <h1>Portal do Cliente – CLIVER CORRETORA DE SEGUROS</h1>
+  <small>Consulte seu saldo de pontos e extrato do Clube de Vantagens</small>
+</header>
+
+<main>
+  <div class="card">
+    <h2 style="margin-top:0;">Identificação do Cliente</h2>
+    <label for="cpfBusca">Informe seu CPF (somente números)</label>
+    <input id="cpfBusca" type="text" placeholder="Ex: 12345678900">
+    <button onclick="buscarCliente()">Consultar</button>
+    <div id="mensagemErro" class="error"></div>
+    <div class="muted">
+      Seus dados são usados apenas para localizar seu saldo dentro deste navegador.
     </div>
-    <script>
-        const KEY = 'programaPontosProtecao_v1';
-        document.getElementById('cpfInput').addEventListener('keydown', function(e) {
-            if(e.key === 'Enter') consultar();
-        });
-        function consultar() {
-            const cpf = document.getElementById('cpfInput').value.replace(/\D/g, '');
-            const div = document.getElementById('resultado');
-            if(!cpf) { div.innerHTML = '<div class="error">Por favor, informe seu CPF.</div>'; return; }
-            const raw = localStorage.getItem(KEY);
-            if(!raw) { div.innerHTML = '<div class="error">Nenhum dado encontrado. Fale com seu corretor para configurar o portal.</div>'; return; }
-            const dados = JSON.parse(raw);
-            const cl = dados.clientes.find(c => c.cpf === cpf);
-            if(!cl) { div.innerHTML = '<div class="error">CPF não encontrado. Verifique com seu corretor se seu cadastro está ativo.</div>'; return; }
-            const movs = (dados.movimentacoes || []).filter(m => m.cpf === cpf);
-            const saldo = movs.reduce((acc, m) => acc + (m.pontos || 0), 0);
-            const positivos = movs.filter(m => m.pontos > 0);
-            const negativos = movs.filter(m => m.pontos < 0);
-            let itensHTML = '';
-            [...movs].reverse().slice(0, 15).forEach(m => {
-                const cls = m.pontos >= 0 ? 'mov-positivo' : 'mov-negativo';
-                const sinal = m.pontos >= 0 ? '+' : '';
-                itensHTML += `<div class="mov-item ${cls}"><span>${m.data} &mdash; ${m.tipo || 'movimento'}</span><span class="mov-pontos">${sinal}${m.pontos} pts</span></div>`;
-            });
-            div.innerHTML = `
-                <div class="result">
-                    <p style="color:#555; font-size:13px; margin-bottom:15px;">Olá, <strong>${cl.nome}</strong>! Seguro: ${cl.seguro}</p>
-                    <div class="saldo-box">
-                        <h2>Saldo de Pontos</h2>
-                        <div class="saldo-valor">${saldo}</div>
-                        <div class="saldo-label">pontos</div>
-                    </div>
-                    <div class="equivalente">
-                        Equiv. a <strong>R$ ${(saldo/10).toFixed(2)}</strong> de desconto
-                    </div>
-                    <div class="extrato">
-                        <h4>Extrato (últimos movimentos)</h4>
-                        ${itensHTML || '<p style="color:#999;font-size:13px;">Nenhum movimento registrado.</p>'}
-                    </div>
-                </div>
-            `;
-        }
-    </script>
+    <div class="info-box">
+      Este portal lê os dados gravados pelo sistema administrativo
+      (<code>index.html</code>) usando a mesma base local.
+      Utilize no mesmo navegador/computador em que o sistema é operado.
+    </div>
+  </div>
+
+  <div id="areaResultados" style="display:none;">
+    <div class="card">
+      <h2 style="margin-top:0;">Dados do Cliente</h2>
+      <p><strong>Nome:</strong> <span id="cliNome"></span></p>
+      <p><strong>CPF:</strong> <span id="cliCPF"></span></p>
+      <p><strong>Email:</strong> <span id="cliEmail"></span></p>
+      <p><strong>Telefone:</strong> <span id="cliTelefone"></span></p>
+      <p><strong>Seguro principal:</strong> <span id="cliSeguro"></span></p>
+      <p><strong>Desde:</strong> <span id="cliData"></span></p>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0;">Saldo de Pontos</h2>
+      <div class="grid">
+        <div>
+          <div class="muted">Saldo atual</div>
+          <div id="saldoPontos" class="saldo">0</div>
+        </div>
+        <div>
+          <div class="muted">Equivalente estimado</div>
+          <div id="saldoReais" class="saldo">R$ 0,00</div>
+        </div>
+      </div>
+      <div class="muted" style="margin-top:8px;">
+        Regra: 10 pontos = R$ 1,00 em descontos ou serviços dentro do Clube de Vantagens.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0;">Extrato de Pontos</h2>
+      <div class="muted">Movimentações mais recentes aparecem primeiro.</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Data/Hora</th>
+            <th>Tipo</th>
+            <th>Descrição</th>
+            <th>Pontos</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaExtrato"></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script>
+  const STORAGE_KEY = 'programaPontosProtecao_v1';
+
+  function normalizarCPF(cpf) {
+    return (cpf || '').replace(/\D/g,'');
+  }
+
+  function carregarEstado() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { clientes:[], movimentos:[] };
+      const dados = JSON.parse(raw);
+      return {
+        clientes: Array.isArray(dados.clientes) ? dados.clientes : [],
+        movimentos: Array.isArray(dados.movimentos) ? dados.movimentos : []
+      };
+    } catch (e) {
+      console.error('Erro ao ler localStorage:', e);
+      return { clientes:[], movimentos:[] };
+    }
+  }
+
+  function buscarCliente() {
+    const cpfBruto = document.getElementById('cpfBusca').value;
+    const cpf = normalizarCPF(cpfBruto);
+    const msgErro = document.getElementById('mensagemErro');
+    const areaResultados = document.getElementById('areaResultados');
+    msgErro.textContent = '';
+    areaResultados.style.display = 'none';
+
+    if (!cpf || cpf.length < 11) {
+      msgErro.textContent = 'Informe um CPF válido (11 dígitos).';
+      return;
+    }
+
+    const { clientes, movimentos } = carregarEstado();
+    if (!clientes.length) {
+      msgErro.textContent = 'Nenhum dado encontrado neste navegador. Abra o sistema administrativo (index.html) e cadastre clientes primeiro.';
+      return;
+    }
+
+    const cliente = clientes.find(c => normalizarCPF(c.cpf) === cpf);
+    if (!cliente) {
+      msgErro.textContent = 'CPF não encontrado no programa de pontos neste navegador.';
+      return;
+    }
+
+    preencherCliente(cliente);
+    preencherSaldoEExtrato(cliente, movimentos);
+    areaResultados.style.display = 'block';
+  }
+
+  function preencherCliente(c) {
+    document.getElementById('cliNome').textContent = c.nome || '';
+    document.getElementById('cliCPF').textContent = c.cpf || '';
+    document.getElementById('cliEmail').textContent = c.email || '';
+    document.getElementById('cliTelefone').textContent = c.telefone || '';
+    document.getElementById('cliSeguro').textContent = c.tipoSeguro || '';
+    document.getElementById('cliData').textContent = c.dataFiliacao || c.dataCadastro || '';
+  }
+
+  function preencherSaldoEExtrato(cliente, movimentos) {
+    const saldo = cliente.pontos ?? cliente.saldoPontos ?? 0;
+    document.getElementById('saldoPontos').textContent = saldo;
+    document.getElementById('saldoReais').textContent = 'R$ ' + (saldo/10).toFixed(2).replace('.',',');
+
+    const extrato = movimentos
+      .filter(m => m.clienteId === cliente.id)
+      .slice()
+      .sort((a,b) => new Date(b.dataISO || b.data) - new Date(a.dataISO || a.data));
+
+    const tbody = document.getElementById('tabelaExtrato');
+    tbody.innerHTML = '';
+
+    if (!extrato.length) {
+      tbody.innerHTML = '<tr><td colspan="4" class="center" style="color:#666;">Nenhuma movimentação registrada ainda.</td></tr>';
+      return;
+    }
+
+    extrato.forEach(m => {
+      const tr = document.createElement('tr');
+      const dataStr = m.dataISO || m.data || '';
+      const dataFmt = dataStr ? new Date(dataStr).toLocaleString('pt-BR') : '';
+      const ganho = m.tipo === 'acumulo' || m.direcao === 'ganho';
+      const tipoLabel = ganho ? 'Ganho de pontos' : 'Resgate de pontos';
+      const tagClass = ganho ? 'tag tag-ganho' : 'tag tag-resgate';
+      const sinal = ganho ? '+' : '-';
+
+      tr.innerHTML = `
+        <td>${dataFmt}</td>
+        <td><span class="${tagClass}">${tipoLabel}</span></td>
+        <td>${m.descricao || ''}</td>
+        <td>${sinal}${m.pontos}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+</script>
 </body>
 </html>
