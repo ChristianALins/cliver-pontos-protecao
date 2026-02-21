@@ -47,4 +47,5 @@ A chave mestre usada no LocalStorage é: `programaPontosProtecao_v1`
 
 ---
 *Documentação Versão 3.0 - Atualizada em 20 de Fevereiro de 2026*
-*CLIVER Corretora de Seguros*
+*Para: CLIVER Corretora de Seguros*
+
